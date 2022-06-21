@@ -18,6 +18,7 @@ function Profile() {
     url: '',
     icon: {},
     technologies: [],
+    status: 'development',
   });
 
   const navigate = useNavigate();
@@ -147,7 +148,7 @@ function Profile() {
                   <div className="font-bold">{project.title}</div>
                   <a
                     className="text-sm opacity-50"
-                    href="https://house-marketplace.fzachopoulos.com/"
+                    href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -1,7 +1,8 @@
 function ProjectItem({ project }) {
   const currentDate = new Date();
   const projectDate = new Date(project.timestamp.seconds * 1000);
-  const isNew = projectDate.getDate() - currentDate.getDate() <= 10;
+  const daysAgo = currentDate.getDate() - projectDate.getDate();
+  const isNew = daysAgo <= 10;
 
   return (
     <div
@@ -14,7 +15,33 @@ function ProjectItem({ project }) {
       <div className="card-body pt-5">
         <h2 className="card-title">
           {project.title}
-          {isNew && <div className="badge badge-accent text-white font-normal">NEW</div>}
+          {project.status === 'development' ? (
+            <div
+              className="badge badge-info text-white font-normal tooltip"
+              data-tip={project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+            >
+              DEV
+            </div>
+          ) : (
+            <div
+              className="badge badge-error text-white font-normal tooltip"
+              data-tip={project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+            >
+              PROD
+            </div>
+          )}
+          {isNew && (
+            <div
+              className="badge badge-accent badge-outline text-white font-normal tooltip"
+              data-tip={
+                daysAgo === 0
+                  ? 'Uploaded today!'
+                  : `Uploaded ${daysAgo} day${daysAgo > 1 ? 's' : ''} ago!`
+              }
+            >
+              NEW
+            </div>
+          )}
         </h2>
         <p>{project.description}</p>
         <div className="card-actions justify-center mb-3 mt-2">
