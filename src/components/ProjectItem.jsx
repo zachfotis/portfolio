@@ -1,14 +1,11 @@
 function ProjectItem({ project }) {
   const currentDate = new Date();
   const projectDate = new Date(project.timestamp.seconds * 1000);
-  const daysAgo = currentDate.getDate() - projectDate.getDate();
+  const daysAgo = projectDate.getDate() - currentDate.getDate();
   const isNew = daysAgo <= 10;
 
   return (
-    <div
-      className="card w-96 bg-base-100 shadow-xl hover:shadow-2xl"
-      style={{ minHeight: '420px' }}
-    >
+    <div className="card w-96 bg-base-100 shadow-xl hover:shadow-2xl" style={{ minHeight: '420px' }}>
       <figure className="flex justify-center items-center mt-6">
         <img src={project.icon} alt="project" className=" max-w-full h-24" />
       </figure>
@@ -33,11 +30,7 @@ function ProjectItem({ project }) {
           {isNew && (
             <div
               className="badge badge-accent badge-outline text-white font-normal tooltip"
-              data-tip={
-                daysAgo === 0
-                  ? 'Uploaded today!'
-                  : `Uploaded ${daysAgo} day${daysAgo > 1 ? 's' : ''} ago!`
-              }
+              data-tip={daysAgo === 0 ? 'Uploaded today!' : `Uploaded ${daysAgo} day${daysAgo > 1 ? 's' : ''} ago!`}
             >
               NEW
             </div>
@@ -58,12 +51,7 @@ function ProjectItem({ project }) {
             );
           })}
         </div>
-        <a
-          className="btn btn-md btn-outline"
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="btn btn-md btn-outline" href={project.url} target="_blank" rel="noopener noreferrer">
           Go To Project
         </a>
       </div>
